@@ -1,0 +1,23 @@
+.trip {
+    position: absolute;
+    border: solid;
+    text-align: center;
+    background-color: white;
+    border-radius: 10%;
+
+    /* Centers the trip button vertically */
+    top: 50%;
+    translate: 0 -50%;
+}
+
+.trip:hover {
+    animation-name: grow;
+    animation-duration: 0.1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes grow {
+    to {
+      transform: scale(.95);
+    }
+}

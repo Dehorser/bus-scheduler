@@ -2,6 +2,7 @@
   "files": {
     "main.css": "/bus-scheduler/static/css/main.0d2a4a3e.chunk.css",
     "main.js": "/bus-scheduler/static/js/main.f6ac88c5.chunk.js",
+    "main.css.map": "/bus-scheduler/static/css/main.0d2a4a3e.chunk.css.map",
     "main.js.map": "/bus-scheduler/static/js/main.f6ac88c5.chunk.js.map",
     "runtime-main.js": "/bus-scheduler/static/js/runtime-main.ac9c18b5.js",
     "runtime-main.js.map": "/bus-scheduler/static/js/runtime-main.ac9c18b5.js.map",
@@ -10,7 +11,6 @@
     "index.html": "/bus-scheduler/index.html",
     "precache-manifest.0ca6c00e2a20706f3deac967e40f681f.js": "/bus-scheduler/precache-manifest.0ca6c00e2a20706f3deac967e40f681f.js",
     "service-worker.js": "/bus-scheduler/service-worker.js",
-    "static/css/main.0d2a4a3e.chunk.css.map": "/bus-scheduler/static/css/main.0d2a4a3e.chunk.css.map",
     "static/js/2.980ae448.chunk.js.LICENSE": "/bus-scheduler/static/js/2.980ae448.chunk.js.LICENSE"
   },
   "entrypoints": [

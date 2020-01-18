@@ -1,8 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
-import "./App.css";
+
 import { Bus, BusId, Trip, TripData } from "./helper/dataClasses";
 import { canAddTrip, generateBusId, reassignDriver, removeTrip } from "./helper/helper";
-import { NEW_BUS_ID, ScheduleComponent } from "./ScheduleComponent.tsx/ScheduleComponent";
+import { ScheduleComponent } from "./ScheduleComponent.tsx/ScheduleComponent";
+
+import style from "./app.module.css";
 
 const NO_TRIP_SELECTED = null;
 
@@ -25,7 +27,7 @@ const App: React.FC = () => {
   // However, combining the two functions is messy and would be the wrong
   // abstraction: https://www.sandimetz.com/blog/2016/1/20/the-wrong-abstraction
   const moveTripToExistingBus = useCallback((destinationBus: Bus) => {
-    if (selectedTrip === NO_TRIP_SELECTED || !canAddTrip(selectedTrip, destinationBus)) {
+    if (selectedTrip === NO_TRIP_SELECTED || !canAddTrip(selectedTrip, destinationBus.trips)) {
       return;
     }
 
@@ -90,7 +92,7 @@ const App: React.FC = () => {
   useEffect(() => {
     fetch("bus-scheduling-input.json")
       .then((response) => response.json())
-      .then((data) => data.map((tripData: TripData, index: number): Bus => {
+      .then((data) => data.map((tripData: TripData): Bus => {
         const id = generateBusId();
         const trip = {
           ...tripData,
@@ -102,15 +104,21 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="App">
-      {buses.length > 0 ? (
-        <ScheduleComponent
-          buses={buses}
-          selectedTrip={selectedTrip}
-          onSelectTrip={onSelectTrip}
-          onSelectExistingBus={moveTripToExistingBus}
-          onSelectNewBus={moveTripToNewBus}
-        />) : <div>Loading!</div>}
+    <div className={style.app}>
+      <div className={style.content}>
+        <div className={style.header} >
+          <h1>Bus Scheduling App</h1>
+          <h4>Solve NP-hard problems by hand</h4>
+        </div>
+        {buses.length > 0 ? (
+          <ScheduleComponent
+            buses={buses}
+            selectedTrip={selectedTrip}
+            onSelectTrip={onSelectTrip}
+            onSelectExistingBus={moveTripToExistingBus}
+            onSelectNewBus={moveTripToNewBus}
+          />) : <div>Loading!</div>}
+        </div>
     </div>
   );
 };

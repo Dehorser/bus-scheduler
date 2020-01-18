@@ -2,13 +2,22 @@
     border-collapse: collapse;
 }
 
-.header {
+.xAxis {
     display: flex;
     flex-direction: row;
 }
 
 .hour {
     width: 60px;
+}
+
+.canAdd {
+    border: 3px solid;
+    border-color: green;
+}
+
+.cannotAdd {
+    opacity: 50%;
 }
 
 .busName {
@@ -30,7 +39,5 @@
     width: 100%;
 }
 
-.newBus {
-    border: 1px solid green;
-    margin: 5px;
-}
+
+

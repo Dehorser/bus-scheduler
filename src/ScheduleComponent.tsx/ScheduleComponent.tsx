@@ -1,6 +1,8 @@
+import classNames from "classnames";
 import _ from "lodash";
 import React, { FunctionComponent } from "react";
 import { Bus, Trip } from "../helper/dataClasses";
+import { canAddTrip, formatHour, formatTime } from "../helper/helper";
 import { TripComponent } from "../TripComponent/TripComponent";
 import style from "./schedule.module.css";
 
@@ -25,11 +27,11 @@ export const ScheduleComponent: FunctionComponent<Props> = ({
 
     const header = (
         <thead>
-            <td />
-            <td className={style.header}>
+            <td colSpan={2}/>
+            <td className={style.xAxis}>
                 {_.range(maximumHours).map(hour => (
                     <div className={style.hour}>
-                        {`${hour}:00`}
+                        {formatHour(hour)}
                     </div>
                 ))}
             </td>
@@ -39,8 +41,9 @@ export const ScheduleComponent: FunctionComponent<Props> = ({
     // A dummy row to add a new bus. Superficially resembles the main rows
     const newBus = (
         (
-            <tr className={style.newBus}>
-                <td className={style.busName}>
+            <tr className={style.canAdd}>
+                <td colSpan={2}
+                    className={style.busName}>
                     {"New Bus"}
                 </td>
                 <td
@@ -49,24 +52,41 @@ export const ScheduleComponent: FunctionComponent<Props> = ({
                 />
             </tr>
         )
-    )
+    );
 
     return (
         <table className={style.schedule}>
             {header}
             <tbody>
-                {buses.map(({ id, trips }, index) => {
+                {buses.map(({id, trips}, index) => {
+
+                    // Style whether you can move a trip to a row
+                    let addTripClassname = "";
+                    // Don't mess with the styling of the source bus
+                    if (selectedTrip && selectedTrip.driver !== id) {
+                        addTripClassname = canAddTrip(selectedTrip, trips) ? style.canAdd : style.cannotAdd;
+                    }
 
                     // Style every even row as a "road"
                     const isEven = index % 2 === 0;
-                    const rowClassName = isEven ? style.asphalt : "";
                     const dottedLineComponent = isEven ? <div className={style.roadLine} /> : null;
+
+                    const rowClassName = classNames(
+                        addTripClassname, {
+                        [style.asphalt]: isEven,
+                    });
+
+                    const startTime = _.min(trips.map(trip => trip.startTime)) || 0;
+                    const endTime = _.max(trips.map(trip => trip.endTime)) || 0;
+                    const formattedStartTime = startTime ? formatTime(startTime) : "undefined";
+                    const formattedEndTime = endTime ? formatTime(endTime) : "undefined";
 
                     return (
                         <tr
                             key={id}
                             className={rowClassName}>
                             <td className={style.busName}>{`Bus #${id}`}</td>
+                            <td>{`${formattedStartTime} - ${formattedEndTime}`}</td>
                             <td
                                 className={style.tripDisplay}
                                 onClick={() => onSelectExistingBus({ id, trips })}>

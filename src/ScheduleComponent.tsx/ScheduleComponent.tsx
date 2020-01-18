@@ -5,6 +5,7 @@ import { Bus, Trip } from "../helper/dataClasses";
 import { canAddTrip, formatHour, formatTime } from "../helper/helper";
 import { TripComponent } from "../TripComponent/TripComponent";
 import style from "./schedule.module.css";
+import helper from "../helper/helper.module.css";
 
 export const NEW_BUS_ID = "New Bus";
 const maximumHours = 12;
@@ -43,7 +44,7 @@ export const ScheduleComponent: FunctionComponent<Props> = ({
         (
             <tr className={style.canAdd}>
                 <td colSpan={2}
-                    className={style.busName}>
+                    className={helper.smallPadding}>
                     {"New Bus"}
                 </td>
                 <td
@@ -85,8 +86,8 @@ export const ScheduleComponent: FunctionComponent<Props> = ({
                         <tr
                             key={id}
                             className={rowClassName}>
-                            <td className={style.busName}>{`Bus #${id}`}</td>
-                            <td>{`${formattedStartTime} - ${formattedEndTime}`}</td>
+                            <td className={helper.smallPadding}>{`Bus #${id}`}</td>
+                            <td className={helper.smallPadding}>{`${formattedStartTime} - ${formattedEndTime}`}</td>
                             <td
                                 className={style.tripDisplay}
                                 onClick={() => onSelectExistingBus({ id, trips })}>

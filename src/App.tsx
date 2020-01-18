@@ -5,6 +5,7 @@ import { canAddTrip, generateBusId, reassignDriver, removeTrip } from "./helper/
 import { ScheduleComponent } from "./ScheduleComponent.tsx/ScheduleComponent";
 
 import style from "./app.module.css";
+import helper from "./helper/helper.module.css";
 
 const NO_TRIP_SELECTED = null;
 
@@ -117,7 +118,7 @@ const App: React.FC = () => {
             onSelectTrip={onSelectTrip}
             onSelectExistingBus={moveTripToExistingBus}
             onSelectNewBus={moveTripToNewBus}
-          />) : <div>Loading!</div>}
+          />) : <div className={helper.smallPadding}>Loading!</div>}
         </div>
     </div>
   );
